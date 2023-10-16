@@ -21,8 +21,11 @@ class TodosRepositoryImpl extends TodosRepository {
 
   @override
   Future<void> deleteTodo(String id) async {
-    final todos = await loadTodos();
-    final ToDo newTodo = todos.firstWhere((t) => t.id != id);
-    myBox.delete(newTodo);
+    myBox.delete(id);
+  }
+
+  @override
+  Future<void> editTask(ToDo toDo) async {
+    await myBox.put(toDo.id, toDo);
   }
 }

@@ -23,7 +23,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
 
     on<DeleteTodoEvent>(
       (event, emit) async {
-        emit(LoadingState());
+        emit(
+          LoadingState(),
+        );
         await TodosRepositoryImpl().deleteTodo(event.id);
         final todos = await TodosRepositoryImpl().loadTodos();
 
@@ -34,6 +36,21 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     );
 
     on<LoadTodosEvent>((event, emit) async {
+      emit(
+        LoadingState(),
+      );
+      final todos = await TodosRepositoryImpl().loadTodos();
+
+      emit(
+        LoadedState(toDo: todos),
+      );
+    });
+
+    on<EditTodoEvent>((event, emit) async {
+      emit(
+        LoadingState(),
+      );
+      await TodosRepositoryImpl().editTask(event.todo);
       final todos = await TodosRepositoryImpl().loadTodos();
 
       emit(

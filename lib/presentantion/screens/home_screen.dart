@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/application/bloc/todo_bloc.dart';
 import 'package:to_do_app/core/router/app_router.dart';
+import 'package:to_do_app/domain/models/todo_model.dart';
 
 @RoutePage()
 class HomeScreen extends StatelessWidget {
@@ -25,7 +26,26 @@ class HomeScreen extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: todos.length,
                     itemBuilder: (context, index) {
-                      return Text(todos[index].title);
+                      final ToDo todo = todos[index];
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(todo.title),
+                          ElevatedButton(
+                            onPressed: () {
+                              context.read<TodoBloc>().add(
+                                    DeleteTodoEvent(id: todo.id),
+                                  );
+                            },
+                            child: const Text('delete'),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                context.router.push(EditRoute(toDo: todo));
+                              },
+                              child: const Text('edit'))
+                        ],
+                      );
                     },
                   ),
                 ),

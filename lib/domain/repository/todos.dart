@@ -4,4 +4,5 @@ abstract class TodosRepository {
   Future<void> loadTodos();
   Future<void> saveTodo(ToDo toDo);
   Future<void> deleteTodo(String id);
+  Future<void> editTask(ToDo toDo);
 }

@@ -12,3 +12,9 @@ class LoadedState extends TodoState {
 }
 
 class LoadingState extends TodoState {}
+
+class EditState extends TodoState {
+  final ToDo toDo;
+
+  EditState({required this.toDo});
+}

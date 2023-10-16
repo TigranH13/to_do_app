@@ -21,6 +21,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AddTaskScreen(),
       );
     },
+    EditRoute.name: (routeData) {
+      final args = routeData.argsAs<EditRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: EditScreen(
+          key: args.key,
+          toDo: args.toDo,
+        ),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -42,6 +52,43 @@ class AddTaskRoute extends PageRouteInfo<void> {
   static const String name = 'AddTaskRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [EditScreen]
+class EditRoute extends PageRouteInfo<EditRouteArgs> {
+  EditRoute({
+    Key? key,
+    required ToDo toDo,
+    List<PageRouteInfo>? children,
+  }) : super(
+          EditRoute.name,
+          args: EditRouteArgs(
+            key: key,
+            toDo: toDo,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'EditRoute';
+
+  static const PageInfo<EditRouteArgs> page = PageInfo<EditRouteArgs>(name);
+}
+
+class EditRouteArgs {
+  const EditRouteArgs({
+    this.key,
+    required this.toDo,
+  });
+
+  final Key? key;
+
+  final ToDo toDo;
+
+  @override
+  String toString() {
+    return 'EditRouteArgs{key: $key, toDo: $toDo}';
+  }
 }
 
 /// generated route for
