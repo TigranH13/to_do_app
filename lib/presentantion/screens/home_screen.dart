@@ -15,6 +15,9 @@ class HomeScreen extends StatelessWidget {
         builder: (cn, state) {
           if (state is LoadedState) {
             List todos = state.toDo;
+            todos.sort(
+              ((a, b) => a.id.compareTo(b.id)),
+            );
             return Column(
               children: [
                 SizedBox(
