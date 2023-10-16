@@ -27,8 +27,8 @@ class AddTaskScreen extends StatelessWidget {
               return ElevatedButton(
                 onPressed: () {
                   context.read<TodoBloc>().add(
-                        SaveTodoEvent(
-                          todo: ToDo(
+                        SaveTaskEvent(
+                          task: Task(
                             title: titleController.text,
                             id: Utils().getRandomId(),
                           ),

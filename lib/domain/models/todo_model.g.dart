@@ -6,24 +6,24 @@ part of 'todo_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ToDoAdapter extends TypeAdapter<ToDo> {
+class ToDoAdapter extends TypeAdapter<Task> {
   @override
-  final int typeId = 2;
+  final int typeId = 0;
 
   @override
-  ToDo read(BinaryReader reader) {
+  Task read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ToDo(
+    return Task(
       title: fields[0] as String,
       id: fields[1] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, ToDo obj) {
+  void write(BinaryWriter writer, Task obj) {
     writer
       ..writeByte(2)
       ..writeByte(0)

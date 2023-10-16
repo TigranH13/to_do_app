@@ -8,54 +8,71 @@ part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  TodoBloc() : super(LoadingState()) {
-    on<SaveTodoEvent>(
+  final TodosRepositoryImpl todosRepositoryImpl = TodosRepositoryImpl();
+  TodoBloc() : super(const LoadingState()) {
+    _saveTask();
+
+    _deleteTask();
+
+    _loadTasks();
+
+    _editTask();
+  }
+
+  void _editTask() {
+    return on<EditTaskEvent>((event, emit) async {
+      emit(
+        const LoadingState(),
+      );
+      await TodosRepositoryImpl().editTask(task: event.task);
+      final todos = await todosRepositoryImpl.loadTasks();
+
+      emit(
+        LoadedState(toDo: todos),
+      );
+    });
+  }
+
+  void _loadTasks() {
+    return on<LoadTasksEvent>((event, emit) async {
+      emit(
+        const LoadingState(),
+      );
+      final todos = await todosRepositoryImpl.loadTasks();
+
+      emit(
+        LoadedState(toDo: todos),
+      );
+    });
+  }
+
+  void _deleteTask() {
+    return on<DeleteTaskEvent>(
       (event, emit) async {
-        emit(LoadingState());
-        await TodosRepositoryImpl().saveTodo(event.todo);
-        final todos = await TodosRepositoryImpl().loadTodos();
+        emit(
+          const LoadingState(),
+        );
+        await TodosRepositoryImpl().deleteTask(id: event.id);
+        final todos = await todosRepositoryImpl.loadTasks();
 
         emit(
           LoadedState(toDo: todos),
         );
       },
     );
+  }
 
-    on<DeleteTodoEvent>(
+  void _saveTask() {
+    return on<SaveTaskEvent>(
       (event, emit) async {
-        emit(
-          LoadingState(),
-        );
-        await TodosRepositoryImpl().deleteTodo(event.id);
-        final todos = await TodosRepositoryImpl().loadTodos();
+        emit(const LoadingState());
+        await TodosRepositoryImpl().saveTask(task: event.task);
+        final todos = await todosRepositoryImpl.loadTasks();
 
         emit(
           LoadedState(toDo: todos),
         );
       },
     );
-
-    on<LoadTodosEvent>((event, emit) async {
-      emit(
-        LoadingState(),
-      );
-      final todos = await TodosRepositoryImpl().loadTodos();
-
-      emit(
-        LoadedState(toDo: todos),
-      );
-    });
-
-    on<EditTodoEvent>((event, emit) async {
-      emit(
-        LoadingState(),
-      );
-      await TodosRepositoryImpl().editTask(event.todo);
-      final todos = await TodosRepositoryImpl().loadTodos();
-
-      emit(
-        LoadedState(toDo: todos),
-      );
-    });
   }
 }

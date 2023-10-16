@@ -7,17 +7,17 @@ import 'package:to_do_app/domain/models/todo_model.dart';
 
 @RoutePage()
 class EditScreen extends StatelessWidget {
-  final ToDo toDo;
+  final Task task;
 
   const EditScreen({
     Key? key,
-    required this.toDo,
+    required this.task,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final TextEditingController titleController =
-        TextEditingController(text: toDo.title);
+        TextEditingController(text: task.title);
 
     return Scaffold(
       body: Column(
@@ -34,10 +34,10 @@ class EditScreen extends StatelessWidget {
               return ElevatedButton(
                 onPressed: () {
                   context.read<TodoBloc>().add(
-                        EditTodoEvent(
-                          todo: ToDo(
+                        EditTaskEvent(
+                          task: Task(
                             title: titleController.text,
-                            id: toDo.id,
+                            id: task.id,
                           ),
                         ),
                       );

@@ -4,28 +4,28 @@ import 'package:to_do_app/domain/models/todo_model.dart';
 
 import 'package:to_do_app/domain/repository/todos.dart';
 
-class TodosRepositoryImpl extends TodosRepository {
-  final myBox = Hive.box<ToDo>('mybox');
+class TodosRepositoryImpl extends ITodosRepository {
+  final myBox = Hive.box<Task>('mybox');
   final String path = 'todos';
 
   @override
-  Future<List<ToDo>> loadTodos() async {
+  Future<List<Task>> loadTasks() async {
     final tasks = myBox.values.toList();
     return tasks;
   }
 
   @override
-  Future<void> saveTodo(ToDo toDo) async {
-    myBox.put(toDo.id, toDo);
+  Future<void> saveTask({required Task task}) async {
+    await myBox.put(task.id, task);
   }
 
   @override
-  Future<void> deleteTodo(String id) async {
-    myBox.delete(id);
+  Future<void> deleteTask({required String id}) async {
+    await myBox.delete(id);
   }
 
   @override
-  Future<void> editTask(ToDo toDo) async {
-    await myBox.put(toDo.id, toDo);
+  Future<void> editTask({required Task task}) async {
+    await myBox.put(task.id, task);
   }
 }

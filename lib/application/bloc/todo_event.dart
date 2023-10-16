@@ -1,30 +1,32 @@
 part of 'todo_bloc.dart';
 
 @immutable
-sealed class TodoEvent {}
+sealed class TodoEvent {
+  const TodoEvent();
+}
 
-class SaveTodoEvent extends TodoEvent {
-  final ToDo todo;
+class SaveTaskEvent extends TodoEvent {
+  final Task task;
 
-  SaveTodoEvent({
-    required this.todo,
+  const SaveTaskEvent({
+    required this.task,
   });
 }
 
-class LoadTodosEvent extends TodoEvent {}
+class LoadTasksEvent extends TodoEvent {}
 
-class DeleteTodoEvent extends TodoEvent {
+class DeleteTaskEvent extends TodoEvent {
   final String id;
 
-  DeleteTodoEvent({
+  const DeleteTaskEvent({
     required this.id,
   });
 }
 
-class EditTodoEvent extends TodoEvent {
-  final ToDo todo;
+class EditTaskEvent extends TodoEvent {
+  final Task task;
 
-  EditTodoEvent({
-    required this.todo,
+  const EditTaskEvent({
+    required this.task,
   });
 }

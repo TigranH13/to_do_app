@@ -15,8 +15,8 @@ class HomeScreen extends StatelessWidget {
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (cn, state) {
           if (state is LoadedState) {
-            List todos = state.toDo;
-            todos.sort(
+            List tasks = state.toDo;
+            tasks.sort(
               ((a, b) => a.id.compareTo(b.id)),
             );
             return Column(
@@ -24,24 +24,24 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 450,
                   child: ListView.builder(
-                    itemCount: todos.length,
+                    itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      final ToDo todo = todos[index];
+                      final Task task = tasks[index];
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Text(todo.title),
+                          Text(task.title),
                           ElevatedButton(
                             onPressed: () {
                               context.read<TodoBloc>().add(
-                                    DeleteTodoEvent(id: todo.id),
+                                    DeleteTaskEvent(id: task.id),
                                   );
                             },
                             child: const Text('delete'),
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                context.router.push(EditRoute(toDo: todo));
+                                context.router.push(EditRoute(toDo: task));
                               },
                               child: const Text('edit'))
                         ],
