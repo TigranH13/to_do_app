@@ -57,7 +57,7 @@ int _taskEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.title.length * 3;
+  bytesCount += 3 + object.title!.length * 3;
   return bytesCount;
 }
 
