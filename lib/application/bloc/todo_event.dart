@@ -16,17 +16,19 @@ class SaveTaskEvent extends TodoEvent {
 class LoadTasksEvent extends TodoEvent {}
 
 class DeleteTaskEvent extends TodoEvent {
-  final String id;
+  final Task task;
 
   const DeleteTaskEvent({
-    required this.id,
+    required this.task,
   });
 }
 
 class EditTaskEvent extends TodoEvent {
-  final Task task;
+  final String title;
+  final int id;
 
   const EditTaskEvent({
-    required this.task,
+    required this.title,
+    required this.id,
   });
 }

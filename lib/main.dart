@@ -6,13 +6,13 @@ import 'package:to_do_app/domain/models/todo_model.dart';
 import 'package:to_do_app/presentantion/core/widgets/app.dart';
 
 void main() async {
-  await Hive.initFlutter();
+  // await Hive.initFlutter();
 
-  Hive.registerAdapter(
-    ToDoAdapter(),
-  );
+  // Hive.registerAdapter(
+  //   ToDoAdapter(),
+  // );
 
-  await Hive.openBox<Task>('mybox');
+  // await Hive.openBox<Task>('mybox');
 
   runApp(
     MyApp(),

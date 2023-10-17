@@ -33,15 +33,15 @@ class HomeScreen extends StatelessWidget {
                           Text(task.title),
                           ElevatedButton(
                             onPressed: () {
-                              context.read<TodoBloc>().add(
-                                    DeleteTaskEvent(id: task.id),
-                                  );
+                              context
+                                  .read<TodoBloc>()
+                                  .add(DeleteTaskEvent(task: task));
                             },
                             child: const Text('delete'),
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                context.router.push(EditRoute(toDo: task));
+                                context.router.push(EditRoute(task: task));
                               },
                               child: const Text('edit'))
                         ],
