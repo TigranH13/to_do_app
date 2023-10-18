@@ -28,19 +28,9 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
 
     await isar.writeTxn(
       () async {
-        await isar.tasks.delete(task.id);
+        await isar.tasks.delete(task.isarId);
       },
     );
-  }
-
-  @override
-  Future<void> editTask({required String title, required int id}) async {
-    final isar = await db;
-
-    Task? task = await isar.tasks.filter().idEqualTo(id).findFirst();
-    task!.title = title;
-    saveTask(task: task);
-    loadTasks();
   }
 
   @override
@@ -64,5 +54,17 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
       return [];
     }
     return tasks;
+  }
+
+  @override
+  Future<void> editTask({
+    required Task task,
+  }) async {
+    final isar = await db;
+
+    Task? newTask = await isar.tasks.filter().idEqualTo(task.id).findFirst();
+    newTask!.title = task.title;
+    saveTask(task: newTask);
+    loadTasks();
   }
 }

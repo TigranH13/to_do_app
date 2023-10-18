@@ -18,6 +18,7 @@ class EditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController titleController =
         TextEditingController(text: task.title);
+    task.title = titleController.text;
 
     return Scaffold(
       body: Column(
@@ -34,7 +35,7 @@ class EditScreen extends StatelessWidget {
               return ElevatedButton(
                 onPressed: () {
                   context.read<TodoBloc>().add(
-                        EditTaskEvent(title: titleController.text, id: task.id),
+                        EditTaskEvent(task: task),
                       );
                   context.router.pop();
                 },

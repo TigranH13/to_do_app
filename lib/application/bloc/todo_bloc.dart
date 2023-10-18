@@ -25,8 +25,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(
         const LoadingState(),
       );
-      await todosRepositoryImplWithIsr.editTask(
-          title: event.title, id: event.id);
+      await todosRepositoryImplWithIsr.editTask(task: event.task);
       final todos = await todosRepositoryImplWithIsr.loadTasks();
 
       emit(

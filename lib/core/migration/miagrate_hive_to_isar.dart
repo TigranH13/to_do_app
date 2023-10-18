@@ -3,6 +3,7 @@ import 'package:isar/isar.dart';
 import 'package:journey/journey.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/core/utils/get_random_id.dart';
 
 class MigrateHiveToIsar extends Migration {
   late Future<Isar> db;
@@ -12,7 +13,7 @@ class MigrateHiveToIsar extends Migration {
   }
 
   @override
-  String get id => 'isrsdaasca';
+  String get id => 'ireopropr';
 
   Future<Isar> _openDb() async {
     if (Isar.instanceNames.isEmpty) {
@@ -27,12 +28,15 @@ class MigrateHiveToIsar extends Migration {
 
   @override
   Future<MigrationResult> migrate() async {
-    final hiveBox = await Hive.openBox('mybox', path: 'todos');
+    print('tichi');
+    final hiveBox = Hive.box('mybox');
     final isar = await db;
 
     for (var i = 0; i < hiveBox.length; i++) {
-      final hiveData = hiveBox.getAt(i);
-      final model = Task(title: '')..title = hiveData['title'];
+      final Task hiveData = hiveBox.getAt(i);
+      final Task model = Task(title: '', id: Utils().getRandomId());
+
+      model.title = hiveData.title;
       await isar.writeTxn(
         () async {
           await isar.tasks.put(model);

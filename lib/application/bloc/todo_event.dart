@@ -24,11 +24,9 @@ class DeleteTaskEvent extends TodoEvent {
 }
 
 class EditTaskEvent extends TodoEvent {
-  final String title;
-  final int id;
+  final Task task;
 
   const EditTaskEvent({
-    required this.title,
-    required this.id,
+    required this.task,
   });
 }
