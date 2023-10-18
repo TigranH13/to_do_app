@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 import 'package:to_do_app/domain/repository/todos.dart';
 
 class TodosRepositoryImplWithIsr implements ITodosRepository {
@@ -67,7 +67,6 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
 
     newTask!.title = task.title;
 
-    print(newTask.title);
     await saveTask(task: newTask);
     await loadTasks();
   }

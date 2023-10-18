@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/data/repository/todos_impl_wtih_isr.dart';
 
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';

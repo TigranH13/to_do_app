@@ -2,7 +2,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:isar/isar.dart';
 import 'package:journey/journey.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 import 'package:to_do_app/core/utils/get_random_id.dart';
 
 class MigrateHiveToIsar extends Migration {
@@ -13,7 +13,7 @@ class MigrateHiveToIsar extends Migration {
   }
 
   @override
-  String get id => 'iiiiii';
+  String get id => 'migrationn';
 
   Future<Isar> _openDb() async {
     if (Isar.instanceNames.isEmpty) {
@@ -28,15 +28,24 @@ class MigrateHiveToIsar extends Migration {
 
   @override
   Future<MigrationResult> migrate() async {
-    print('tichi');
+    await Hive.initFlutter();
+    Hive.registerAdapter(
+      TaskAdapter(),
+    );
+
+    await Hive.openBox(
+      'mybox',
+    );
     final hiveBox = Hive.box('mybox');
     final isar = await db;
 
     for (var i = 0; i < hiveBox.length; i++) {
       final Task hiveData = hiveBox.getAt(i);
-      final Task model = Task(title: '', forId: Utils().getRandomId());
 
-      model.title = hiveData.title;
+      final Task model = Task(
+        title: hiveData.title,
+        forId: Utils().getRandomId(),
+      );
       await isar.writeTxn(
         () async {
           await isar.tasks.put(model);

@@ -1,4 +1,4 @@
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 
 abstract class ITodosRepository {
   Future<List<Task>> loadTasks();

@@ -1,7 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:hive/hive.dart';
 import 'package:fnv/fnv.dart';
-part 'todo_model.g.dart';
+part 'task.g.dart';
 
 @collection
 @HiveType(typeId: 0)
