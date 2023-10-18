@@ -17,9 +17,7 @@ class HomeScreen extends StatelessWidget {
         builder: (cn, state) {
           if (state is LoadedState) {
             List tasks = state.toDo;
-            // tasks.sort(
-            //   ((a, b) => a.id.compareTo(b.id)),
-            // );
+
             return Column(
               children: [
                 SizedBox(
@@ -34,15 +32,17 @@ class HomeScreen extends StatelessWidget {
                           Text(task.title),
                           ElevatedButton(
                             onPressed: () {
-                              context
-                                  .read<TodoBloc>()
-                                  .add(DeleteTaskEvent(task: task));
+                              context.read<TodoBloc>().add(
+                                    DeleteTaskEvent(task: task),
+                                  );
                             },
                             child: const Text('delete'),
                           ),
                           ElevatedButton(
                               onPressed: () {
-                                context.router.push(EditRoute(task: task));
+                                context.router.push(
+                                  EditRoute(task: task),
+                                );
                               },
                               child: const Text('edit'))
                         ],

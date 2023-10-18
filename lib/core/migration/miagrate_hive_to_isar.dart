@@ -18,8 +18,11 @@ class MigrateHiveToIsar extends Migration {
   Future<Isar> _openDb() async {
     if (Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
-      return await Isar.open([TaskSchema],
-          inspector: true, directory: dir.path);
+      return await Isar.open(
+        [TaskSchema],
+        inspector: true,
+        directory: dir.path,
+      );
     }
     return Future.value(
       Isar.getInstance(),
