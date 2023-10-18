@@ -13,7 +13,7 @@ class MigrateHiveToIsar extends Migration {
   }
 
   @override
-  String get id => 'ireopropr';
+  String get id => 'iiiiii';
 
   Future<Isar> _openDb() async {
     if (Isar.instanceNames.isEmpty) {
@@ -34,7 +34,7 @@ class MigrateHiveToIsar extends Migration {
 
     for (var i = 0; i < hiveBox.length; i++) {
       final Task hiveData = hiveBox.getAt(i);
-      final Task model = Task(title: '', id: Utils().getRandomId());
+      final Task model = Task(title: '', forId: Utils().getRandomId());
 
       model.title = hiveData.title;
       await isar.writeTxn(

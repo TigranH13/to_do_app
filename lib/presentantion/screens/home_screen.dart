@@ -17,9 +17,9 @@ class HomeScreen extends StatelessWidget {
         builder: (cn, state) {
           if (state is LoadedState) {
             List tasks = state.toDo;
-            tasks.sort(
-              ((a, b) => a.id.compareTo(b.id)),
-            );
+            // tasks.sort(
+            //   ((a, b) => a.id.compareTo(b.id)),
+            // );
             return Column(
               children: [
                 SizedBox(

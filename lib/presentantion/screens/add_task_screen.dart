@@ -29,7 +29,7 @@ class AddTaskScreen extends StatelessWidget {
                   context.read<TodoBloc>().add(
                         SaveTaskEvent(
                           task: Task(
-                            id: Utils().getRandomId(),
+                            forId: Utils().getRandomId(),
                             title: titleController.text,
                           ),
                         ),

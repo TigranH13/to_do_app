@@ -49,7 +49,7 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
   Future<List<Task>> loadTasks() async {
     final isar = await db;
 
-    final List<Task> tasks = await isar.tasks.where().findAll();
+    final List<Task> tasks = await isar.tasks.where().sortByForId().findAll();
     if (tasks.isEmpty) {
       return [];
     }
@@ -62,9 +62,13 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
   }) async {
     final isar = await db;
 
-    Task? newTask = await isar.tasks.filter().idEqualTo(task.id).findFirst();
+    Task? newTask =
+        await isar.tasks.filter().isarIdEqualTo(task.isarId).findFirst();
+
     newTask!.title = task.title;
-    saveTask(task: newTask);
-    loadTasks();
+
+    print(newTask.title);
+    await saveTask(task: newTask);
+    await loadTasks();
   }
 }
