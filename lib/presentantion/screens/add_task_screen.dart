@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/application/bloc/todo_bloc.dart';
-import 'package:to_do_app/domain/models/todo_model.dart';
-import 'package:to_do_app/presentantion/utils/get_random_id.dart';
+import 'package:to_do_app/domain/models/task.dart';
+import 'package:to_do_app/core/utils/get_random_id.dart';
 
 @RoutePage()
 class AddTaskScreen extends StatelessWidget {
@@ -29,8 +29,8 @@ class AddTaskScreen extends StatelessWidget {
                   context.read<TodoBloc>().add(
                         SaveTaskEvent(
                           task: Task(
+                            forId: Utils().getRandomId(),
                             title: titleController.text,
-                            id: Utils().getRandomId(),
                           ),
                         ),
                       );

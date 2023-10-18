@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:to_do_app/application/bloc/todo_bloc.dart';
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 
 @RoutePage()
 class EditScreen extends StatelessWidget {
@@ -18,6 +18,7 @@ class EditScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController titleController =
         TextEditingController(text: task.title);
+    task.title = titleController.text;
 
     return Scaffold(
       body: Column(
@@ -30,16 +31,13 @@ class EditScreen extends StatelessWidget {
             height: 16,
           ),
           BlocBuilder<TodoBloc, TodoState>(
-            builder: (context, _) {
+            builder: (context, event) {
               return ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  task.title = titleController.text;
+
                   context.read<TodoBloc>().add(
-                        EditTaskEvent(
-                          task: Task(
-                            title: titleController.text,
-                            id: task.id,
-                          ),
-                        ),
+                        EditTaskEvent(task: task),
                       );
                   context.router.pop();
                 },

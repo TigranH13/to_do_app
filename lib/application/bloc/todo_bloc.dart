@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_app/infrasrtucture/repository/todos_impl.dart';
+import 'package:to_do_app/data/repository/todos_impl_wtih_isr.dart';
 
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
+import 'package:to_do_app/domain/repository/todos.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  final TodosRepositoryImpl todosRepositoryImpl = TodosRepositoryImpl();
-  TodoBloc() : super(const LoadingState()) {
+  final ITodosRepository todosRepositoryImplWithIsr;
+
+  TodoBloc({required this.todosRepositoryImplWithIsr})
+      : super(const LoadingState()) {
     _saveTask();
 
     _deleteTask();
@@ -24,8 +27,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(
         const LoadingState(),
       );
-      await TodosRepositoryImpl().editTask(task: event.task);
-      final todos = await todosRepositoryImpl.loadTasks();
+      await todosRepositoryImplWithIsr.editTask(task: event.task);
+      final todos = await todosRepositoryImplWithIsr.loadTasks();
 
       emit(
         LoadedState(toDo: todos),
@@ -38,7 +41,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       emit(
         const LoadingState(),
       );
-      final todos = await todosRepositoryImpl.loadTasks();
+      final todos = await todosRepositoryImplWithIsr.loadTasks();
 
       emit(
         LoadedState(toDo: todos),
@@ -52,8 +55,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
         emit(
           const LoadingState(),
         );
-        await TodosRepositoryImpl().deleteTask(id: event.id);
-        final todos = await todosRepositoryImpl.loadTasks();
+        await todosRepositoryImplWithIsr.deleteTask(task: event.task);
+        final todos = await todosRepositoryImplWithIsr.loadTasks();
 
         emit(
           LoadedState(toDo: todos),
@@ -66,8 +69,8 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
     return on<SaveTaskEvent>(
       (event, emit) async {
         emit(const LoadingState());
-        await TodosRepositoryImpl().saveTask(task: event.task);
-        final todos = await todosRepositoryImpl.loadTasks();
+        await todosRepositoryImplWithIsr.saveTask(task: event.task);
+        final todos = await todosRepositoryImplWithIsr.loadTasks();
 
         emit(
           LoadedState(toDo: todos),

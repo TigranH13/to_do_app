@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:to_do_app/domain/models/todo_model.dart';
+import 'package:to_do_app/domain/models/task.dart';
 import 'package:to_do_app/presentantion/screens/add_task_screen.dart';
 import 'package:to_do_app/presentantion/screens/edit_screen.dart';
 import 'package:to_do_app/presentantion/screens/home_screen.dart';

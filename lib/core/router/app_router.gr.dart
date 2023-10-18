@@ -27,7 +27,7 @@ abstract class _$AppRouter extends RootStackRouter {
         routeData: routeData,
         child: EditScreen(
           key: args.key,
-          task: args.toDo,
+          task: args.task,
         ),
       );
     },
@@ -59,13 +59,13 @@ class AddTaskRoute extends PageRouteInfo<void> {
 class EditRoute extends PageRouteInfo<EditRouteArgs> {
   EditRoute({
     Key? key,
-    required Task toDo,
+    required Task task,
     List<PageRouteInfo>? children,
   }) : super(
           EditRoute.name,
           args: EditRouteArgs(
             key: key,
-            toDo: toDo,
+            task: task,
           ),
           initialChildren: children,
         );
@@ -78,16 +78,16 @@ class EditRoute extends PageRouteInfo<EditRouteArgs> {
 class EditRouteArgs {
   const EditRouteArgs({
     this.key,
-    required this.toDo,
+    required this.task,
   });
 
   final Key? key;
 
-  final Task toDo;
+  final Task task;
 
   @override
   String toString() {
-    return 'EditRouteArgs{key: $key, toDo: $toDo}';
+    return 'EditRouteArgs{key: $key, task: $task}';
   }
 }
 
