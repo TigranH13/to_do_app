@@ -3,14 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:to_do_app/data/repository/todos_impl_wtih_isr.dart';
 
 import 'package:to_do_app/domain/models/task.dart';
+import 'package:to_do_app/domain/repository/todos.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  final TodosRepositoryImplWithIsr todosRepositoryImplWithIsr =
-      TodosRepositoryImplWithIsr();
-  TodoBloc() : super(const LoadingState()) {
+  final ITodosRepository todosRepositoryImplWithIsr;
+
+  TodoBloc({required this.todosRepositoryImplWithIsr})
+      : super(const LoadingState()) {
     _saveTask();
 
     _deleteTask();
