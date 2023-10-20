@@ -1,9 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:to_do_app/domain/models/task.dart';
 import 'package:to_do_app/domain/repository/todos.dart';
 
+@Injectable(as: ITodosRepository)
 class TodosRepositoryImplWithIsr implements ITodosRepository {
   late Future<Isar> db;
 

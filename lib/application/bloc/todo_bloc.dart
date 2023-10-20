@@ -1,18 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:to_do_app/data/repository/todos_impl_wtih_isr.dart';
-
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 import 'package:to_do_app/domain/models/task.dart';
 import 'package:to_do_app/domain/repository/todos.dart';
 
 part 'todo_event.dart';
 part 'todo_state.dart';
+part 'todo_bloc.freezed.dart';
 
+@injectable
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
   final ITodosRepository todosRepositoryImplWithIsr;
 
   TodoBloc({required this.todosRepositoryImplWithIsr})
-      : super(const LoadingState()) {
+      : super(
+          const TodoState.initial(),
+        ) {
     _saveTask();
 
     _deleteTask();
@@ -23,57 +26,57 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   void _editTask() {
-    return on<EditTaskEvent>((event, emit) async {
+    return on<TaskEdit>((event, emit) async {
       emit(
-        const LoadingState(),
+        const TodoState.loading(),
       );
       await todosRepositoryImplWithIsr.editTask(task: event.task);
-      final todos = await todosRepositoryImplWithIsr.loadTasks();
+      final tasks = await todosRepositoryImplWithIsr.loadTasks();
 
       emit(
-        LoadedState(toDo: todos),
+        TodoState.loaded(tasks: tasks),
       );
     });
   }
 
   void _loadTasks() {
-    return on<LoadTasksEvent>((event, emit) async {
+    return on<TaskLoad>((event, emit) async {
       emit(
-        const LoadingState(),
+        const TodoState.loading(),
       );
-      final todos = await todosRepositoryImplWithIsr.loadTasks();
+      final tasks = await todosRepositoryImplWithIsr.loadTasks();
 
       emit(
-        LoadedState(toDo: todos),
+        TodoState.loaded(tasks: tasks),
       );
     });
   }
 
   void _deleteTask() {
-    return on<DeleteTaskEvent>(
+    return on<TaskDelete>(
       (event, emit) async {
         emit(
-          const LoadingState(),
+          const TodoState.loading(),
         );
         await todosRepositoryImplWithIsr.deleteTask(task: event.task);
         final todos = await todosRepositoryImplWithIsr.loadTasks();
 
         emit(
-          LoadedState(toDo: todos),
+          TodoState.loaded(tasks: todos),
         );
       },
     );
   }
 
   void _saveTask() {
-    return on<SaveTaskEvent>(
+    return on<TaskSave>(
       (event, emit) async {
-        emit(const LoadingState());
+        emit(const TodoState.loading());
         await todosRepositoryImplWithIsr.saveTask(task: event.task);
-        final todos = await todosRepositoryImplWithIsr.loadTasks();
+        final tasks = await todosRepositoryImplWithIsr.loadTasks();
 
         emit(
-          LoadedState(toDo: todos),
+          TodoState.loaded(tasks: tasks),
         );
       },
     );

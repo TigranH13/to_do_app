@@ -13,10 +13,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<TodoBloc, TodoState>(
-        builder: (cn, state) {
-          if (state is LoadedState) {
-            List tasks = state.toDo;
+      body: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
+        return state.map(
+          initial: (value) => const SizedBox(),
+          loading: (value) => const SizedBox(),
+          loaded: (value) {
+            final List<Task> tasks = value.tasks;
 
             return Column(
               children: [
@@ -33,18 +35,19 @@ class HomeScreen extends StatelessWidget {
                           ElevatedButton(
                             onPressed: () {
                               context.read<TodoBloc>().add(
-                                    DeleteTaskEvent(task: task),
+                                    TaskDelete(task: task),
                                   );
                             },
                             child: const Text('delete'),
                           ),
                           ElevatedButton(
-                              onPressed: () {
-                                context.router.push(
-                                  EditRoute(task: task),
-                                );
-                              },
-                              child: const Text('edit'))
+                            onPressed: () {
+                              context.router.push(
+                                EditRoute(task: task),
+                              );
+                            },
+                            child: const Text('edit'),
+                          )
                         ],
                       );
                     },
@@ -58,11 +61,9 @@ class HomeScreen extends StatelessWidget {
                 )
               ],
             );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      ),
+          },
+        );
+      }),
     );
   }
 }

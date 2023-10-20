@@ -30,20 +30,16 @@ class EditScreen extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          BlocBuilder<TodoBloc, TodoState>(
-            builder: (context, event) {
-              return ElevatedButton(
-                onPressed: () async {
-                  task.title = titleController.text;
+          ElevatedButton(
+            onPressed: () async {
+              task.title = titleController.text;
 
-                  context.read<TodoBloc>().add(
-                        EditTaskEvent(task: task),
-                      );
-                  context.router.pop();
-                },
-                child: const Text('ddd'),
-              );
+              context.read<TodoBloc>().add(
+                    TaskEdit(task: task),
+                  );
+              context.router.pop();
             },
+            child: const Text('ddd'),
           ),
         ],
       ),
