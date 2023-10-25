@@ -46,6 +46,7 @@ class MigrateHiveToIsar extends Migration {
       final Task hiveData = hiveBox.getAt(i);
 
       final Task model = Task(
+        scheduleTime: DateTime.now(),
         title: hiveData.title,
         forId: Utils().getRandomId(),
       );

@@ -19,6 +19,7 @@ class TaskAdapter extends TypeAdapter<Task> {
     return Task(
       forId: fields[1] as String,
       title: fields[0] as String,
+      scheduleTime: fields[2] as DateTime,
     );
   }
 
@@ -63,8 +64,13 @@ const TaskSchema = CollectionSchema(
       name: r'forId',
       type: IsarType.string,
     ),
-    r'title': PropertySchema(
+    r'scheduleTime': PropertySchema(
       id: 1,
+      name: r'scheduleTime',
+      type: IsarType.dateTime,
+    ),
+    r'title': PropertySchema(
+      id: 2,
       name: r'title',
       type: IsarType.string,
     )
@@ -115,7 +121,8 @@ void _taskSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.forId);
-  writer.writeString(offsets[1], object.title);
+  writer.writeDateTime(offsets[1], object.scheduleTime);
+  writer.writeString(offsets[2], object.title);
 }
 
 Task _taskDeserialize(
@@ -126,7 +133,8 @@ Task _taskDeserialize(
 ) {
   final object = Task(
     forId: reader.readString(offsets[0]),
-    title: reader.readString(offsets[1]),
+    scheduleTime: reader.readDateTime(offsets[1]),
+    title: reader.readString(offsets[2]),
   );
   return object;
 }
@@ -141,6 +149,8 @@ P _taskDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
+      return (reader.readDateTime(offset)) as P;
+    case 2:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -555,6 +565,59 @@ extension TaskQueryFilter on QueryBuilder<Task, Task, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterFilterCondition> scheduleTimeEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'scheduleTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> scheduleTimeGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'scheduleTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> scheduleTimeLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'scheduleTime',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterFilterCondition> scheduleTimeBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'scheduleTime',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterFilterCondition> titleEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -701,6 +764,18 @@ extension TaskQuerySortBy on QueryBuilder<Task, Task, QSortBy> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterSortBy> sortByScheduleTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'scheduleTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> sortByScheduleTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'scheduleTime', Sort.desc);
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterSortBy> sortByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -739,6 +814,18 @@ extension TaskQuerySortThenBy on QueryBuilder<Task, Task, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Task, Task, QAfterSortBy> thenByScheduleTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'scheduleTime', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Task, Task, QAfterSortBy> thenByScheduleTimeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'scheduleTime', Sort.desc);
+    });
+  }
+
   QueryBuilder<Task, Task, QAfterSortBy> thenByTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'title', Sort.asc);
@@ -760,6 +847,12 @@ extension TaskQueryWhereDistinct on QueryBuilder<Task, Task, QDistinct> {
     });
   }
 
+  QueryBuilder<Task, Task, QDistinct> distinctByScheduleTime() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'scheduleTime');
+    });
+  }
+
   QueryBuilder<Task, Task, QDistinct> distinctByTitle(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -778,6 +871,12 @@ extension TaskQueryProperty on QueryBuilder<Task, Task, QQueryProperty> {
   QueryBuilder<Task, String, QQueryOperations> forIdProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'forId');
+    });
+  }
+
+  QueryBuilder<Task, DateTime, QQueryOperations> scheduleTimeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'scheduleTime');
     });
   }
 

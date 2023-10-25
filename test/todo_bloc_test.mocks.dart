@@ -92,11 +92,18 @@ class MockTodosRepositoryImplWithIsr extends _i1.Mock
       ) as _i4.Future<List<_i5.Task>>);
 
   @override
-  _i4.Future<void> editTask({required _i5.Task? task}) => (super.noSuchMethod(
+  _i4.Future<void> editTask({
+    required _i5.Task? task,
+    DateTime? scheduleTime,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #editTask,
           [],
-          {#task: task},
+          {
+            #task: task,
+            #scheduleTime: scheduleTime,
+          },
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

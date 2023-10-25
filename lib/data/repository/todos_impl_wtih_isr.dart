@@ -1,7 +1,9 @@
 import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:to_do_app/core/notifications/notify_service.dart';
 import 'package:to_do_app/domain/repository/todos.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../../domain/models/task.dart';
 
@@ -30,7 +32,9 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
   }
 
   @override
-  Future<void> deleteTask({required Task task}) async {
+  Future<void> deleteTask({
+    required Task task,
+  }) async {
     final isar = await db;
 
     await isar.writeTxn(
@@ -38,10 +42,16 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
         await isar.tasks.delete(task.isarId);
       },
     );
+
+    NotificationService().removeNotification(
+      id: task.isarId.hashCode,
+    );
   }
 
   @override
   Future<void> saveTask({required Task task}) async {
+    NotificationService().createTaskScheduleNotification(task: task);
+
     final isar = await db;
 
     await isar.writeTxn(
@@ -49,7 +59,6 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
         await isar.tasks.put(task);
       },
     );
-    await loadTasks();
   }
 
   @override
@@ -64,17 +73,17 @@ class TodosRepositoryImplWithIsr implements ITodosRepository {
   }
 
   @override
-  Future<void> editTask({
-    required Task task,
-  }) async {
-    final isar = await db;
+  Future<void> editTask({required Task task, DateTime? scheduleTime}) async {
+    // final isar = await db;
 
-    Task? newTask =
-        await isar.tasks.filter().isarIdEqualTo(task.isarId).findFirst();
+    // Task? newTask =
+    //     await isar.tasks.filter().isarIdEqualTo(task.isarId).findFirst();
 
-    newTask!.title = task.title;
+    // newTask!.title = task.title;
 
-    await saveTask(task: newTask);
+    NotificationService().createTaskScheduleNotification(task: task);
+
+    await saveTask(task: task);
     await loadTasks();
   }
 }

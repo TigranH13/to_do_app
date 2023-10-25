@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 import 'package:to_do_app/application/bloc/todo_bloc.dart';
 import 'package:to_do_app/domain/models/task.dart';
@@ -16,9 +17,9 @@ class EditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime? scheduleTime;
     final TextEditingController titleController =
         TextEditingController(text: task.title);
-    task.title = titleController.text;
 
     return Scaffold(
       body: Column(
@@ -35,11 +36,31 @@ class EditScreen extends StatelessWidget {
               task.title = titleController.text;
 
               context.read<TodoBloc>().add(
-                    TaskEdit(task: task),
+                    TaskEdit(
+                      scheduleTime: scheduleTime,
+                      task: Task(
+                          scheduleTime: task.scheduleTime,
+                          forId: task.forId,
+                          title: titleController.text),
+                    ),
                   );
               context.router.pop();
             },
             child: const Text('ddd'),
+          ),
+          TextButton(
+            onPressed: () {
+              DatePicker.showDateTimePicker(
+                context,
+                showTitleActions: true,
+                onChanged: (date) => scheduleTime = date,
+                onConfirm: (date) {},
+              );
+            },
+            child: const Text(
+              'Select Date Time',
+              style: TextStyle(color: Colors.blue),
+            ),
           ),
         ],
       ),

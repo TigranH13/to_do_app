@@ -10,6 +10,7 @@ class TodoEvent with _$TodoEvent {
     required Task task,
   }) = TaskDelete;
   const factory TodoEvent.editTask({
+    required DateTime? scheduleTime,
     required Task task,
   }) = TaskEdit;
 }

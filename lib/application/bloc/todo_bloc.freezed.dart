@@ -21,7 +21,7 @@ mixin _$TodoEvent {
     required TResult Function(Task task) saveTask,
     required TResult Function() loadTasks,
     required TResult Function(Task task) deleteTask,
-    required TResult Function(Task task) editTask,
+    required TResult Function(DateTime? scheduleTime, Task task) editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$TodoEvent {
     TResult? Function(Task task)? saveTask,
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? deleteTask,
-    TResult? Function(Task task)? editTask,
+    TResult? Function(DateTime? scheduleTime, Task task)? editTask,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$TodoEvent {
     TResult Function(Task task)? saveTask,
     TResult Function()? loadTasks,
     TResult Function(Task task)? deleteTask,
-    TResult Function(Task task)? editTask,
+    TResult Function(DateTime? scheduleTime, Task task)? editTask,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -152,7 +152,7 @@ class _$TaskSaveImpl implements TaskSave {
     required TResult Function(Task task) saveTask,
     required TResult Function() loadTasks,
     required TResult Function(Task task) deleteTask,
-    required TResult Function(Task task) editTask,
+    required TResult Function(DateTime? scheduleTime, Task task) editTask,
   }) {
     return saveTask(task);
   }
@@ -163,7 +163,7 @@ class _$TaskSaveImpl implements TaskSave {
     TResult? Function(Task task)? saveTask,
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? deleteTask,
-    TResult? Function(Task task)? editTask,
+    TResult? Function(DateTime? scheduleTime, Task task)? editTask,
   }) {
     return saveTask?.call(task);
   }
@@ -174,7 +174,7 @@ class _$TaskSaveImpl implements TaskSave {
     TResult Function(Task task)? saveTask,
     TResult Function()? loadTasks,
     TResult Function(Task task)? deleteTask,
-    TResult Function(Task task)? editTask,
+    TResult Function(DateTime? scheduleTime, Task task)? editTask,
     required TResult orElse(),
   }) {
     if (saveTask != null) {
@@ -271,7 +271,7 @@ class _$TaskLoadImpl implements TaskLoad {
     required TResult Function(Task task) saveTask,
     required TResult Function() loadTasks,
     required TResult Function(Task task) deleteTask,
-    required TResult Function(Task task) editTask,
+    required TResult Function(DateTime? scheduleTime, Task task) editTask,
   }) {
     return loadTasks();
   }
@@ -282,7 +282,7 @@ class _$TaskLoadImpl implements TaskLoad {
     TResult? Function(Task task)? saveTask,
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? deleteTask,
-    TResult? Function(Task task)? editTask,
+    TResult? Function(DateTime? scheduleTime, Task task)? editTask,
   }) {
     return loadTasks?.call();
   }
@@ -293,7 +293,7 @@ class _$TaskLoadImpl implements TaskLoad {
     TResult Function(Task task)? saveTask,
     TResult Function()? loadTasks,
     TResult Function(Task task)? deleteTask,
-    TResult Function(Task task)? editTask,
+    TResult Function(DateTime? scheduleTime, Task task)? editTask,
     required TResult orElse(),
   }) {
     if (loadTasks != null) {
@@ -411,7 +411,7 @@ class _$TaskDeleteImpl implements TaskDelete {
     required TResult Function(Task task) saveTask,
     required TResult Function() loadTasks,
     required TResult Function(Task task) deleteTask,
-    required TResult Function(Task task) editTask,
+    required TResult Function(DateTime? scheduleTime, Task task) editTask,
   }) {
     return deleteTask(task);
   }
@@ -422,7 +422,7 @@ class _$TaskDeleteImpl implements TaskDelete {
     TResult? Function(Task task)? saveTask,
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? deleteTask,
-    TResult? Function(Task task)? editTask,
+    TResult? Function(DateTime? scheduleTime, Task task)? editTask,
   }) {
     return deleteTask?.call(task);
   }
@@ -433,7 +433,7 @@ class _$TaskDeleteImpl implements TaskDelete {
     TResult Function(Task task)? saveTask,
     TResult Function()? loadTasks,
     TResult Function(Task task)? deleteTask,
-    TResult Function(Task task)? editTask,
+    TResult Function(DateTime? scheduleTime, Task task)? editTask,
     required TResult orElse(),
   }) {
     if (deleteTask != null) {
@@ -495,7 +495,7 @@ abstract class _$$TaskEditImplCopyWith<$Res> {
           _$TaskEditImpl value, $Res Function(_$TaskEditImpl) then) =
       __$$TaskEditImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({Task task});
+  $Res call({DateTime? scheduleTime, Task task});
 }
 
 /// @nodoc
@@ -509,9 +509,14 @@ class __$$TaskEditImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? scheduleTime = freezed,
     Object? task = null,
   }) {
     return _then(_$TaskEditImpl(
+      scheduleTime: freezed == scheduleTime
+          ? _value.scheduleTime
+          : scheduleTime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       task: null == task
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
@@ -523,14 +528,16 @@ class __$$TaskEditImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$TaskEditImpl implements TaskEdit {
-  const _$TaskEditImpl({required this.task});
+  const _$TaskEditImpl({required this.scheduleTime, required this.task});
 
+  @override
+  final DateTime? scheduleTime;
   @override
   final Task task;
 
   @override
   String toString() {
-    return 'TodoEvent.editTask(task: $task)';
+    return 'TodoEvent.editTask(scheduleTime: $scheduleTime, task: $task)';
   }
 
   @override
@@ -538,11 +545,13 @@ class _$TaskEditImpl implements TaskEdit {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TaskEditImpl &&
+            (identical(other.scheduleTime, scheduleTime) ||
+                other.scheduleTime == scheduleTime) &&
             (identical(other.task, task) || other.task == task));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, task);
+  int get hashCode => Object.hash(runtimeType, scheduleTime, task);
 
   @JsonKey(ignore: true)
   @override
@@ -556,9 +565,9 @@ class _$TaskEditImpl implements TaskEdit {
     required TResult Function(Task task) saveTask,
     required TResult Function() loadTasks,
     required TResult Function(Task task) deleteTask,
-    required TResult Function(Task task) editTask,
+    required TResult Function(DateTime? scheduleTime, Task task) editTask,
   }) {
-    return editTask(task);
+    return editTask(scheduleTime, task);
   }
 
   @override
@@ -567,9 +576,9 @@ class _$TaskEditImpl implements TaskEdit {
     TResult? Function(Task task)? saveTask,
     TResult? Function()? loadTasks,
     TResult? Function(Task task)? deleteTask,
-    TResult? Function(Task task)? editTask,
+    TResult? Function(DateTime? scheduleTime, Task task)? editTask,
   }) {
-    return editTask?.call(task);
+    return editTask?.call(scheduleTime, task);
   }
 
   @override
@@ -578,11 +587,11 @@ class _$TaskEditImpl implements TaskEdit {
     TResult Function(Task task)? saveTask,
     TResult Function()? loadTasks,
     TResult Function(Task task)? deleteTask,
-    TResult Function(Task task)? editTask,
+    TResult Function(DateTime? scheduleTime, Task task)? editTask,
     required TResult orElse(),
   }) {
     if (editTask != null) {
-      return editTask(task);
+      return editTask(scheduleTime, task);
     }
     return orElse();
   }
@@ -626,8 +635,11 @@ class _$TaskEditImpl implements TaskEdit {
 }
 
 abstract class TaskEdit implements TodoEvent {
-  const factory TaskEdit({required final Task task}) = _$TaskEditImpl;
+  const factory TaskEdit(
+      {required final DateTime? scheduleTime,
+      required final Task task}) = _$TaskEditImpl;
 
+  DateTime? get scheduleTime;
   Task get task;
   @JsonKey(ignore: true)
   _$$TaskEditImplCopyWith<_$TaskEditImpl> get copyWith =>

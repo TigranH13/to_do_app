@@ -14,7 +14,10 @@ class Task {
   @Index(type: IndexType.value)
   String title;
 
+  final DateTime scheduleTime;
+
   Task({
+    required this.scheduleTime,
     required this.forId,
     required this.title,
   });

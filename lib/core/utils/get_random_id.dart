@@ -5,4 +5,8 @@ class Utils {
     final id = const Uuid().v6();
     return id;
   }
+
+  int createUniqueIdForNotify() {
+    return DateTime.now().millisecondsSinceEpoch.remainder(100000);
+  }
 }
