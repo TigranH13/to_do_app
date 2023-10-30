@@ -2,12 +2,12 @@ import 'package:injectable/injectable.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:to_do_app/core/notifications/notify_service.dart';
-import 'package:to_do_app/tasks/data/datasources/task_local_data_source.dart';
+import 'package:to_do_app/tasks/data/datasources/task_data_source.dart';
 
 import 'package:to_do_app/tasks/domain/models/task.dart';
 
 @injectable
-class LocalDataSource implements ITaskLocalDataSource {
+class LocalDataSource implements ITaskDataSource {
   late Future<Isar> tasksStorage;
   late Future<Isar> removedTasksCache;
 
@@ -37,9 +37,7 @@ class LocalDataSource implements ITaskLocalDataSource {
     final isar = await tasksStorage;
 
     await isar.writeTxn(
-      () async {
-        await isar.tasks.delete(task.isarId);
-      },
+      () async {},
     );
 
     NotificationService().removeNotification(

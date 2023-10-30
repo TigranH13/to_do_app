@@ -29,6 +29,7 @@ class TaskRepositoryImpl implements ITasksRepository {
     await localDataSource.removeTask(task: task);
 
     try {
+      remoteDataSource.cacheRemovedTask(task: task);
       remoteDataSource.removeTask(task: task);
     } catch (e) {
       localDataSource.cacheRemovedTask(task: task);
@@ -43,8 +44,11 @@ class TaskRepositoryImpl implements ITasksRepository {
 
   @override
   Future<void> syncRemoteAndLocalData() async {
-    final List<Task> removedCache = await localDataSource.getRemovedTaskCache();
-    await _syncFirebaseWithRemoveCache(removedCache);
+    final List<Task> removedRemoteCashe =
+        await remoteDataSource.getRemovedTaskCache();
+    final List<Task> removedLocalCache =
+        await localDataSource.getRemovedTaskCache();
+    await _syncFirebaseWithRemoveCache(removedLocalCache, removedRemoteCashe);
 
     final List<Task> isarTasks = await localDataSource.getTasks();
     final List<Task> fbTasks = await remoteDataSource.getTasks();
@@ -54,10 +58,14 @@ class TaskRepositoryImpl implements ITasksRepository {
   }
 
   Future<void> _syncFirebaseWithRemoveCache(
-    List<Task> removedCache,
-  ) async {
-    for (var task in removedCache) {
+      List<Task> removedLocalCache, List<Task> removedRemoteChashe) async {
+    for (var task in removedLocalCache) {
       remoteDataSource.removeTask(task: task);
+      remoteDataSource.cacheRemovedTask(task: task);
+    }
+
+    for (var task in removedRemoteChashe) {
+      localDataSource.removeTask(task: task);
     }
   }
 

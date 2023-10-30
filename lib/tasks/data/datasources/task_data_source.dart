@@ -1,10 +1,17 @@
 import 'package:to_do_app/tasks/domain/models/task.dart';
 
-abstract class ITaskLocalDataSource {
+abstract class ITaskDataSource {
   Future<List<Task>> getTasks();
-  Future<void> saveTask({required Task task});
-  Future<void> removeTask({required Task task});
-  Future<void> editTask({required Task task, required DateTime? scheduleTime});
+  Future<void> saveTask({
+    required Task task,
+  });
+  Future<void> removeTask({
+    required Task task,
+  });
+  Future<void> editTask({
+    required Task task,
+    required DateTime? scheduleTime,
+  });
   Future<void> cacheRemovedTask({required Task task});
   Future<void> clearRemovedTaskCache();
   Future<List<Task>> getRemovedTaskCache();
