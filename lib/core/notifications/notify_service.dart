@@ -1,6 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 
-import 'package:to_do_app/domain/models/task.dart';
+import '../../tasks/domain/models/task.dart';
 
 class NotificationService {
   Future<void> createTaskScheduleNotification({required Task task}) async {
