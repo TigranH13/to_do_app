@@ -6,6 +6,7 @@ import 'package:to_do_app/auth/application/auth_bloc.dart';
 import 'package:to_do_app/auth/presentation/widgets/login_bottons.dart';
 import 'package:to_do_app/auth/presentation/widgets/my_text_field.dart';
 import 'package:to_do_app/core/router/app_router.dart';
+import 'package:to_do_app/tasks/application/bloc/todo_bloc.dart';
 
 @RoutePage()
 class SignInScreen extends StatelessWidget {
@@ -26,6 +27,9 @@ class SignInScreen extends StatelessWidget {
             context.router.replace(
               const HomeRoute(),
             );
+            context.read<TodoBloc>().add(
+                  const TodoEvent.init(),
+                );
           },
         );
       },

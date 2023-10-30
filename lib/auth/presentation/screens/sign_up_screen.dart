@@ -26,6 +26,9 @@ class SignUpScreen extends StatelessWidget {
           orElse: () {},
           isSigned: (value) {
             context.router.replace(const HomeRoute());
+            context.read<TodoBloc>().add(
+                  const TodoEvent.init(),
+                );
           },
         );
       },
