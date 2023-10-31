@@ -17,20 +17,25 @@ class TaskAdapter extends TypeAdapter<Task> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Task(
-        forId: fields[1] as String,
-        title: fields[0] as String,
-        timeStemp: fields[2] as DateTime,
-        scheduleTime: fields[3] as DateTime);
+      timeStemp: fields[3] as DateTime,
+      scheduleTime: fields[2] as DateTime,
+      forId: fields[0] as String,
+      title: fields[1] as String,
+    );
   }
 
   @override
   void write(BinaryWriter writer, Task obj) {
     writer
-      ..writeByte(2)
-      ..writeByte(1)
-      ..write(obj.forId)
+      ..writeByte(4)
       ..writeByte(0)
-      ..write(obj.title);
+      ..write(obj.forId)
+      ..writeByte(1)
+      ..write(obj.title)
+      ..writeByte(2)
+      ..write(obj.scheduleTime)
+      ..writeByte(3)
+      ..write(obj.timeStemp);
   }
 
   @override
@@ -85,47 +90,7 @@ const TaskSchema = CollectionSchema(
   deserialize: _taskDeserialize,
   deserializeProp: _taskDeserializeProp,
   idName: r'isarId',
-  indexes: {
-    r'title': IndexSchema(
-      id: -7636685945352118059,
-      name: r'title',
-      unique: false,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'title',
-          type: IndexType.value,
-          caseSensitive: true,
-        )
-      ],
-    ),
-    r'scheduleTime': IndexSchema(
-      id: 4875340790193541308,
-      name: r'scheduleTime',
-      unique: false,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'scheduleTime',
-          type: IndexType.value,
-          caseSensitive: false,
-        )
-      ],
-    ),
-    r'timeStemp': IndexSchema(
-      id: 5945162985202878003,
-      name: r'timeStemp',
-      unique: false,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'timeStemp',
-          type: IndexType.value,
-          caseSensitive: false,
-        )
-      ],
-    )
-  },
+  indexes: {},
   links: {},
   embeddedSchemas: {},
   getId: _taskGetId,
@@ -208,30 +173,6 @@ extension TaskQueryWhereSort on QueryBuilder<Task, Task, QWhere> {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
-
-  QueryBuilder<Task, Task, QAfterWhere> anyTitle() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'title'),
-      );
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhere> anyScheduleTime() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'scheduleTime'),
-      );
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhere> anyTimeStemp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'timeStemp'),
-      );
-    });
-  }
 }
 
 extension TaskQueryWhere on QueryBuilder<Task, Task, QWhereClause> {
@@ -295,320 +236,6 @@ extension TaskQueryWhere on QueryBuilder<Task, Task, QWhereClause> {
         lower: lowerIsarId,
         includeLower: includeLower,
         upper: upperIsarId,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleEqualTo(String title) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'title',
-        value: [title],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleNotEqualTo(String title) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'title',
-              lower: [],
-              upper: [title],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'title',
-              lower: [title],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'title',
-              lower: [title],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'title',
-              lower: [],
-              upper: [title],
-              includeUpper: false,
-            ));
-      }
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleGreaterThan(
-    String title, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'title',
-        lower: [title],
-        includeLower: include,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleLessThan(
-    String title, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'title',
-        lower: [],
-        upper: [title],
-        includeUpper: include,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleBetween(
-    String lowerTitle,
-    String upperTitle, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'title',
-        lower: [lowerTitle],
-        includeLower: includeLower,
-        upper: [upperTitle],
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleStartsWith(
-      String TitlePrefix) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'title',
-        lower: [TitlePrefix],
-        upper: ['$TitlePrefix\u{FFFFF}'],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'title',
-        value: [''],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> titleIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.lessThan(
-              indexName: r'title',
-              upper: [''],
-            ))
-            .addWhereClause(IndexWhereClause.greaterThan(
-              indexName: r'title',
-              lower: [''],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.greaterThan(
-              indexName: r'title',
-              lower: [''],
-            ))
-            .addWhereClause(IndexWhereClause.lessThan(
-              indexName: r'title',
-              upper: [''],
-            ));
-      }
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> scheduleTimeEqualTo(
-      DateTime scheduleTime) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'scheduleTime',
-        value: [scheduleTime],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> scheduleTimeNotEqualTo(
-      DateTime scheduleTime) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'scheduleTime',
-              lower: [],
-              upper: [scheduleTime],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'scheduleTime',
-              lower: [scheduleTime],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'scheduleTime',
-              lower: [scheduleTime],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'scheduleTime',
-              lower: [],
-              upper: [scheduleTime],
-              includeUpper: false,
-            ));
-      }
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> scheduleTimeGreaterThan(
-    DateTime scheduleTime, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'scheduleTime',
-        lower: [scheduleTime],
-        includeLower: include,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> scheduleTimeLessThan(
-    DateTime scheduleTime, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'scheduleTime',
-        lower: [],
-        upper: [scheduleTime],
-        includeUpper: include,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> scheduleTimeBetween(
-    DateTime lowerScheduleTime,
-    DateTime upperScheduleTime, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'scheduleTime',
-        lower: [lowerScheduleTime],
-        includeLower: includeLower,
-        upper: [upperScheduleTime],
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> timeStempEqualTo(
-      DateTime timeStemp) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'timeStemp',
-        value: [timeStemp],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> timeStempNotEqualTo(
-      DateTime timeStemp) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'timeStemp',
-              lower: [],
-              upper: [timeStemp],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'timeStemp',
-              lower: [timeStemp],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'timeStemp',
-              lower: [timeStemp],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'timeStemp',
-              lower: [],
-              upper: [timeStemp],
-              includeUpper: false,
-            ));
-      }
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> timeStempGreaterThan(
-    DateTime timeStemp, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'timeStemp',
-        lower: [timeStemp],
-        includeLower: include,
-        upper: [],
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> timeStempLessThan(
-    DateTime timeStemp, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'timeStemp',
-        lower: [],
-        upper: [timeStemp],
-        includeUpper: include,
-      ));
-    });
-  }
-
-  QueryBuilder<Task, Task, QAfterWhereClause> timeStempBetween(
-    DateTime lowerTimeStemp,
-    DateTime upperTimeStemp, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'timeStemp',
-        lower: [lowerTimeStemp],
-        includeLower: includeLower,
-        upper: [upperTimeStemp],
         includeUpper: includeUpper,
       ));
     });

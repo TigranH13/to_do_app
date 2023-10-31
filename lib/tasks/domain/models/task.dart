@@ -9,17 +9,16 @@ part 'task.g.dart';
 @JsonSerializable()
 class Task {
   Id get isarId => fnv1a_32_s(forId);
-  @HiveField(1)
+  @HiveField(0)
   String forId;
 
-  @HiveField(0)
-  @Index(type: IndexType.value)
+  @HiveField(1)
   String title;
 
-  @Index(type: IndexType.value)
+  @HiveField(2)
   final DateTime scheduleTime;
 
-  @Index(type: IndexType.value)
+  @HiveField(3)
   final DateTime timeStemp;
 
   Task({
