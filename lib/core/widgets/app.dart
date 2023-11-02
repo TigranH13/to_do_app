@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:to_do_app/auth/application/auth_bloc.dart';
-
 import 'package:to_do_app/core/router/app_router.dart';
+import 'package:to_do_app/features/auto_sign_in_with_qr/application/bloc/auto_sign_in_bloc.dart';
+import 'package:to_do_app/features/tasks/application/bloc/todo_bloc.dart';
 import 'package:to_do_app/locator/injection.dart';
-import 'package:to_do_app/tasks/application/bloc/todo_bloc.dart';
+
+import '../../features/auth/application/auth_bloc.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) => getIt.get<AutoSignInBloc>(),
+          ),
           BlocProvider(
             create: (BuildContext context) => getIt.get<TodoBloc>()
               ..add(

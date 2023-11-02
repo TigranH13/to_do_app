@@ -49,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '716646968054',
     projectId: 'todoapp-f05fe',
     authDomain: 'todoapp-f05fe.firebaseapp.com',
+    databaseURL: 'https://todoapp-f05fe-default-rtdb.firebaseio.com',
     storageBucket: 'todoapp-f05fe.appspot.com',
   );
 
@@ -57,6 +58,7 @@ class DefaultFirebaseOptions {
     appId: '1:716646968054:android:eef91134cd0da6667e9ad7',
     messagingSenderId: '716646968054',
     projectId: 'todoapp-f05fe',
+    databaseURL: 'https://todoapp-f05fe-default-rtdb.firebaseio.com',
     storageBucket: 'todoapp-f05fe.appspot.com',
   );
 
@@ -65,6 +67,7 @@ class DefaultFirebaseOptions {
     appId: '1:716646968054:ios:94506d37c24812537e9ad7',
     messagingSenderId: '716646968054',
     projectId: 'todoapp-f05fe',
+    databaseURL: 'https://todoapp-f05fe-default-rtdb.firebaseio.com',
     storageBucket: 'todoapp-f05fe.appspot.com',
     iosClientId: '716646968054-fjl36158ijaoiksem6s6qjcjsar1hcku.apps.googleusercontent.com',
     iosBundleId: 'com.example.toDoApp',
@@ -75,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:716646968054:ios:721ab36239fe95f67e9ad7',
     messagingSenderId: '716646968054',
     projectId: 'todoapp-f05fe',
+    databaseURL: 'https://todoapp-f05fe-default-rtdb.firebaseio.com',
     storageBucket: 'todoapp-f05fe.appspot.com',
     iosClientId: '716646968054-5trehn7ekgo90ok8f603ghkp3h5fjeft.apps.googleusercontent.com',
     iosBundleId: 'com.example.toDoApp.RunnerTests',

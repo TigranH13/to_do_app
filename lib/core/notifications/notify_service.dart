@@ -1,12 +1,11 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
-
-import '../../tasks/domain/models/task.dart';
+import 'package:to_do_app/features/tasks/domain/models/task.dart';
 
 class NotificationService {
   Future<void> createTaskScheduleNotification({required Task task}) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: task.isarId.hashCode,
+        id: task.id.hashCode,
         channelKey: 'basic_channel',
         title: task.title,
         body: 'not forget ',
@@ -39,7 +38,7 @@ class NotificationService {
 
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: task.isarId.hashCode,
+        id: task.id.hashCode,
         channelKey: 'basic_channel',
         title: task.title,
         body: 'not forget ',
