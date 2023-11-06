@@ -1,8 +1,12 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:injectable/injectable.dart';
 import 'package:to_do_app/features/tasks/domain/models/task.dart';
 
+@injectable
 class NotificationService {
-  Future<void> createTaskScheduleNotification({required Task task}) async {
+  Future<void> createTaskScheduleNotification({
+    required Task task,
+  }) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
         id: task.id.hashCode,
@@ -22,7 +26,7 @@ class NotificationService {
         minute: task.scheduleTime.minute,
         second: 0,
         millisecond: 0,
-        repeats: true,
+        repeats: false,
       ),
     );
   }
@@ -55,12 +59,16 @@ class NotificationService {
         minute: time.minute,
         second: 0,
         millisecond: 0,
-        repeats: true,
+        repeats: false,
       ),
     );
   }
 
   Future<void> removeNotification({required int id}) async {
     await AwesomeNotifications().cancel(id);
+  }
+
+  Future<void> clearNotifications() async {
+    await AwesomeNotifications().cancelAll();
   }
 }

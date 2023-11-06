@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:to_do_app/core/router/app_router.dart';
-import 'package:to_do_app/features/auth/application/auth_bloc.dart';
+import 'package:to_do_app/features/auth/application/authBloc/auth_bloc.dart';
 import 'package:to_do_app/features/auth/presentation/widgets/login_bottons.dart';
 import 'package:to_do_app/features/auth/presentation/widgets/my_text_field.dart';
 

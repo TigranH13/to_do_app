@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:to_do_app/core/router/app_router.dart';
-import 'package:to_do_app/features/auth/application/auth_bloc.dart';
+import 'package:to_do_app/features/auth/application/authBloc/auth_bloc.dart';
 import 'package:to_do_app/features/tasks/application/bloc/todo_bloc.dart';
 import 'package:to_do_app/features/tasks/domain/models/task.dart';
 
@@ -17,78 +17,83 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {
         state.maybeMap(
           orElse: () {},
-          isNotSigned: (value) {
-            context.router.replace(const SignInRoute());
+          isNotSigned: (value) async {
+            context.router.replace(
+              const SignInRoute(),
+            );
           },
         );
       },
       child: Scaffold(
         backgroundColor: Colors.red,
-        body: BlocBuilder<TodoBloc, TodoState>(builder: (context, state) {
-          return state.map(
-            initial: (value) => const SizedBox(),
-            loading: (value) => const CircularProgressIndicator(),
-            loaded: (value) {
-              final List<Task> tasks = value.tasks;
+        body: BlocBuilder<TodoBloc, TodoState>(
+          builder: (context, state) {
+            return state.map(
+              error: (value) => const CircularProgressIndicator(),
+              initial: (value) => const SizedBox(),
+              loading: (value) => const CircularProgressIndicator(),
+              loaded: (value) {
+                final List<Task> tasks = value.tasks;
 
-              return Column(
-                children: [
-                  SizedBox(
-                    height: 450,
-                    child: ListView.builder(
-                      itemCount: tasks.length,
-                      itemBuilder: (context, index) {
-                        final Task task = tasks[index];
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(task.title),
-                            ElevatedButton(
-                              onPressed: () {
-                                context.read<TodoBloc>().add(
-                                      DeleteTask(task: task),
-                                    );
-                              },
-                              child: const Text('delete'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                context.router.push(
-                                  EditRoute(task: task),
-                                );
-                              },
-                              child: const Text('edit'),
-                            ),
-                          ],
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 450,
+                      child: ListView.builder(
+                        itemCount: tasks.length,
+                        itemBuilder: (context, index) {
+                          final Task task = tasks[index];
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(task.title),
+                              ElevatedButton(
+                                onPressed: () {
+                                  context.read<TodoBloc>().add(
+                                        DeleteTask(task: task),
+                                      );
+                                },
+                                child: const Text('delete'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  context.router.push(
+                                    EditRoute(task: task),
+                                  );
+                                },
+                                child: const Text('edit'),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => context.router.push(
+                        const AddTaskRoute(),
+                      ),
+                      child: const Text('add task'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<AuthBloc>().add(const SignOut());
+                      },
+                      child: const Text('logout'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.router.push(
+                          const QrScannerRoute(),
                         );
                       },
+                      child: const Text('scan'),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => context.router.push(
-                      const AddTaskRoute(),
-                    ),
-                    child: const Text('add task'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<AuthBloc>().add(const SignOut());
-                    },
-                    child: const Text('logout'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.router.push(
-                        const QrScannerRoute(),
-                      );
-                    },
-                    child: const Text('scan'),
-                  ),
-                ],
-              );
-            },
-          );
-        }),
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

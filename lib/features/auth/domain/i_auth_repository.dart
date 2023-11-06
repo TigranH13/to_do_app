@@ -1,8 +1,27 @@
-abstract class IAuthRepository {
-  Future signInWithGoogle();
-  Future createUserWithEmailAndPassword(String email, String password);
+import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:to_do_app/core/error/failures.dart';
 
-  Future signInWithEmailAndPassword(String email, String password);
-  Future signOut();
-  Future signInWithToken({required String token});
+abstract class IAuthRepository {
+  Future<Either<Failure, AuthCredential>> createUserWithEmailAndPassword(
+    String email,
+    String password,
+  );
+
+  Future<Either<Failure, AuthCredential>> signInWithCredential({
+    required AuthCredential credential,
+  });
+
+  Future<Either<Failure, AuthCredential>> signInWithEmailAndPassword(
+    String email,
+    String password,
+  );
+
+  Future<void> signOut();
+
+  Future<void> signInWithQr({
+    required AuthCredential credential,
+  });
+
+  bool isSigned();
 }

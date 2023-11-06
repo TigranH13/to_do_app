@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:to_do_app/features/auth/application/auth_bloc.dart';
+import 'package:to_do_app/features/auth/application/authBloc/auth_bloc.dart';
 
 class LoginButtons extends StatelessWidget {
   const LoginButtons({
@@ -28,7 +28,7 @@ class LoginButtons extends StatelessWidget {
               width: 400,
               decoration: BoxDecoration(
                   color: Colors.black, borderRadius: BorderRadius.circular(9)),
-              child: Center(
+              child: const Center(
                 child: Text(
                   'Login',
                   style: TextStyle(
@@ -44,7 +44,7 @@ class LoginButtons extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              context.read<AuthBloc>().add(SignInWithGoogle());
+              context.read<AuthBloc>().add(const SignInWithCredential());
             },
             child: Container(
               height: 60,

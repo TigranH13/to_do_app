@@ -19,7 +19,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
@@ -30,7 +30,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
@@ -41,7 +41,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
@@ -52,7 +52,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
@@ -63,7 +63,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
@@ -74,7 +74,7 @@ mixin _$AuthEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -141,7 +141,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
@@ -155,7 +155,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
@@ -169,7 +169,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
@@ -186,7 +186,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
@@ -200,7 +200,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
@@ -214,7 +214,7 @@ class _$InitAuthImpl implements InitAuth {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -234,35 +234,36 @@ abstract class InitAuth implements AuthEvent {
 }
 
 /// @nodoc
-abstract class _$$SignInWithGoogleImplCopyWith<$Res> {
-  factory _$$SignInWithGoogleImplCopyWith(_$SignInWithGoogleImpl value,
-          $Res Function(_$SignInWithGoogleImpl) then) =
-      __$$SignInWithGoogleImplCopyWithImpl<$Res>;
+abstract class _$$SignInWithCredentialImplCopyWith<$Res> {
+  factory _$$SignInWithCredentialImplCopyWith(_$SignInWithCredentialImpl value,
+          $Res Function(_$SignInWithCredentialImpl) then) =
+      __$$SignInWithCredentialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$SignInWithGoogleImplCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$SignInWithGoogleImpl>
-    implements _$$SignInWithGoogleImplCopyWith<$Res> {
-  __$$SignInWithGoogleImplCopyWithImpl(_$SignInWithGoogleImpl _value,
-      $Res Function(_$SignInWithGoogleImpl) _then)
+class __$$SignInWithCredentialImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SignInWithCredentialImpl>
+    implements _$$SignInWithCredentialImplCopyWith<$Res> {
+  __$$SignInWithCredentialImplCopyWithImpl(_$SignInWithCredentialImpl _value,
+      $Res Function(_$SignInWithCredentialImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$SignInWithGoogleImpl implements SignInWithGoogle {
-  const _$SignInWithGoogleImpl();
+class _$SignInWithCredentialImpl implements SignInWithCredential {
+  const _$SignInWithCredentialImpl();
 
   @override
   String toString() {
-    return 'AuthEvent.signInWithGoogle()';
+    return 'AuthEvent.signInWithCredential()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$SignInWithGoogleImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$SignInWithCredentialImpl);
   }
 
   @override
@@ -272,43 +273,43 @@ class _$SignInWithGoogleImpl implements SignInWithGoogle {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
         signInWithEmailAndPassword,
     required TResult Function() signOut,
   }) {
-    return signInWithGoogle();
+    return signInWithCredential();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
         signInWithEmailAndPassword,
     TResult? Function()? signOut,
   }) {
-    return signInWithGoogle?.call();
+    return signInWithCredential?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
     TResult Function()? signOut,
     required TResult orElse(),
   }) {
-    if (signInWithGoogle != null) {
-      return signInWithGoogle();
+    if (signInWithCredential != null) {
+      return signInWithCredential();
     }
     return orElse();
   }
@@ -317,35 +318,35 @@ class _$SignInWithGoogleImpl implements SignInWithGoogle {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
         signInWithEmailAndPassword,
     required TResult Function(SignOut value) signOut,
   }) {
-    return signInWithGoogle(this);
+    return signInWithCredential(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
         signInWithEmailAndPassword,
     TResult? Function(SignOut value)? signOut,
   }) {
-    return signInWithGoogle?.call(this);
+    return signInWithCredential?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -353,15 +354,15 @@ class _$SignInWithGoogleImpl implements SignInWithGoogle {
     TResult Function(SignOut value)? signOut,
     required TResult orElse(),
   }) {
-    if (signInWithGoogle != null) {
-      return signInWithGoogle(this);
+    if (signInWithCredential != null) {
+      return signInWithCredential(this);
     }
     return orElse();
   }
 }
 
-abstract class SignInWithGoogle implements AuthEvent {
-  const factory SignInWithGoogle() = _$SignInWithGoogleImpl;
+abstract class SignInWithCredential implements AuthEvent {
+  const factory SignInWithCredential() = _$SignInWithCredentialImpl;
 }
 
 /// @nodoc
@@ -443,7 +444,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
@@ -457,7 +458,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
@@ -471,7 +472,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
@@ -488,7 +489,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
@@ -502,7 +503,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
@@ -516,7 +517,7 @@ class _$CreateUserWithEmailAndPasswordImpl
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -621,7 +622,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
@@ -635,7 +636,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
@@ -649,7 +650,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
@@ -666,7 +667,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
@@ -680,7 +681,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
@@ -694,7 +695,7 @@ class _$SignInWithEmailAndPasswordImpl implements SignInWithEmailAndPassword {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -760,7 +761,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() init,
-    required TResult Function() signInWithGoogle,
+    required TResult Function() signInWithCredential,
     required TResult Function(String email, String password)
         createUserWithEmailAndPassword,
     required TResult Function(String email, String password)
@@ -774,7 +775,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? init,
-    TResult? Function()? signInWithGoogle,
+    TResult? Function()? signInWithCredential,
     TResult? Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult? Function(String email, String password)?
@@ -788,7 +789,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? init,
-    TResult Function()? signInWithGoogle,
+    TResult Function()? signInWithCredential,
     TResult Function(String email, String password)?
         createUserWithEmailAndPassword,
     TResult Function(String email, String password)? signInWithEmailAndPassword,
@@ -805,7 +806,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(InitAuth value) init,
-    required TResult Function(SignInWithGoogle value) signInWithGoogle,
+    required TResult Function(SignInWithCredential value) signInWithCredential,
     required TResult Function(CreateUserWithEmailAndPassword value)
         createUserWithEmailAndPassword,
     required TResult Function(SignInWithEmailAndPassword value)
@@ -819,7 +820,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InitAuth value)? init,
-    TResult? Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult? Function(SignInWithCredential value)? signInWithCredential,
     TResult? Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult? Function(SignInWithEmailAndPassword value)?
@@ -833,7 +834,7 @@ class _$SignOutImpl implements SignOut {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InitAuth value)? init,
-    TResult Function(SignInWithGoogle value)? signInWithGoogle,
+    TResult Function(SignInWithCredential value)? signInWithCredential,
     TResult Function(CreateUserWithEmailAndPassword value)?
         createUserWithEmailAndPassword,
     TResult Function(SignInWithEmailAndPassword value)?
@@ -860,6 +861,7 @@ mixin _$AuthState {
     required TResult Function() loading,
     required TResult Function() isSigned,
     required TResult Function() isNotSigned,
+    required TResult Function() failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -868,6 +870,7 @@ mixin _$AuthState {
     TResult? Function()? loading,
     TResult? Function()? isSigned,
     TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -876,6 +879,7 @@ mixin _$AuthState {
     TResult Function()? loading,
     TResult Function()? isSigned,
     TResult Function()? isNotSigned,
+    TResult Function()? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -885,6 +889,7 @@ mixin _$AuthState {
     required TResult Function(_Loading value) loading,
     required TResult Function(_IsSigned value) isSigned,
     required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -893,6 +898,7 @@ mixin _$AuthState {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_IsSigned value)? isSigned,
     TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -901,6 +907,7 @@ mixin _$AuthState {
     TResult Function(_Loading value)? loading,
     TResult Function(_IsSigned value)? isSigned,
     TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -965,6 +972,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() loading,
     required TResult Function() isSigned,
     required TResult Function() isNotSigned,
+    required TResult Function() failed,
   }) {
     return initial();
   }
@@ -976,6 +984,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? loading,
     TResult? Function()? isSigned,
     TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
   }) {
     return initial?.call();
   }
@@ -987,6 +996,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? loading,
     TResult Function()? isSigned,
     TResult Function()? isNotSigned,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1002,6 +1012,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Loading value) loading,
     required TResult Function(_IsSigned value) isSigned,
     required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
   }) {
     return initial(this);
   }
@@ -1013,6 +1024,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_IsSigned value)? isSigned,
     TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
   }) {
     return initial?.call(this);
   }
@@ -1024,6 +1036,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Loading value)? loading,
     TResult Function(_IsSigned value)? isSigned,
     TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -1079,6 +1092,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() loading,
     required TResult Function() isSigned,
     required TResult Function() isNotSigned,
+    required TResult Function() failed,
   }) {
     return loading();
   }
@@ -1090,6 +1104,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? loading,
     TResult? Function()? isSigned,
     TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
   }) {
     return loading?.call();
   }
@@ -1101,6 +1116,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? loading,
     TResult Function()? isSigned,
     TResult Function()? isNotSigned,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1116,6 +1132,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function(_Loading value) loading,
     required TResult Function(_IsSigned value) isSigned,
     required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
   }) {
     return loading(this);
   }
@@ -1127,6 +1144,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_IsSigned value)? isSigned,
     TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
   }) {
     return loading?.call(this);
   }
@@ -1138,6 +1156,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function(_Loading value)? loading,
     TResult Function(_IsSigned value)? isSigned,
     TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -1193,6 +1212,7 @@ class _$IsSignedImpl implements _IsSigned {
     required TResult Function() loading,
     required TResult Function() isSigned,
     required TResult Function() isNotSigned,
+    required TResult Function() failed,
   }) {
     return isSigned();
   }
@@ -1204,6 +1224,7 @@ class _$IsSignedImpl implements _IsSigned {
     TResult? Function()? loading,
     TResult? Function()? isSigned,
     TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
   }) {
     return isSigned?.call();
   }
@@ -1215,6 +1236,7 @@ class _$IsSignedImpl implements _IsSigned {
     TResult Function()? loading,
     TResult Function()? isSigned,
     TResult Function()? isNotSigned,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (isSigned != null) {
@@ -1230,6 +1252,7 @@ class _$IsSignedImpl implements _IsSigned {
     required TResult Function(_Loading value) loading,
     required TResult Function(_IsSigned value) isSigned,
     required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
   }) {
     return isSigned(this);
   }
@@ -1241,6 +1264,7 @@ class _$IsSignedImpl implements _IsSigned {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_IsSigned value)? isSigned,
     TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
   }) {
     return isSigned?.call(this);
   }
@@ -1252,6 +1276,7 @@ class _$IsSignedImpl implements _IsSigned {
     TResult Function(_Loading value)? loading,
     TResult Function(_IsSigned value)? isSigned,
     TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (isSigned != null) {
@@ -1307,6 +1332,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     required TResult Function() loading,
     required TResult Function() isSigned,
     required TResult Function() isNotSigned,
+    required TResult Function() failed,
   }) {
     return isNotSigned();
   }
@@ -1318,6 +1344,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     TResult? Function()? loading,
     TResult? Function()? isSigned,
     TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
   }) {
     return isNotSigned?.call();
   }
@@ -1329,6 +1356,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     TResult Function()? loading,
     TResult Function()? isSigned,
     TResult Function()? isNotSigned,
+    TResult Function()? failed,
     required TResult orElse(),
   }) {
     if (isNotSigned != null) {
@@ -1344,6 +1372,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     required TResult Function(_Loading value) loading,
     required TResult Function(_IsSigned value) isSigned,
     required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
   }) {
     return isNotSigned(this);
   }
@@ -1355,6 +1384,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     TResult? Function(_Loading value)? loading,
     TResult? Function(_IsSigned value)? isSigned,
     TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
   }) {
     return isNotSigned?.call(this);
   }
@@ -1366,6 +1396,7 @@ class _$IsNotSignedImpl implements _IsNotSigned {
     TResult Function(_Loading value)? loading,
     TResult Function(_IsSigned value)? isSigned,
     TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
     required TResult orElse(),
   }) {
     if (isNotSigned != null) {
@@ -1377,4 +1408,124 @@ class _$IsNotSignedImpl implements _IsNotSigned {
 
 abstract class _IsNotSigned implements AuthState {
   const factory _IsNotSigned() = _$IsNotSignedImpl;
+}
+
+/// @nodoc
+abstract class _$$FailedImplCopyWith<$Res> {
+  factory _$$FailedImplCopyWith(
+          _$FailedImpl value, $Res Function(_$FailedImpl) then) =
+      __$$FailedImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$FailedImplCopyWithImpl<$Res>
+    extends _$AuthStateCopyWithImpl<$Res, _$FailedImpl>
+    implements _$$FailedImplCopyWith<$Res> {
+  __$$FailedImplCopyWithImpl(
+      _$FailedImpl _value, $Res Function(_$FailedImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$FailedImpl implements _Failed {
+  const _$FailedImpl();
+
+  @override
+  String toString() {
+    return 'AuthState.failed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$FailedImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() isSigned,
+    required TResult Function() isNotSigned,
+    required TResult Function() failed,
+  }) {
+    return failed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? isSigned,
+    TResult? Function()? isNotSigned,
+    TResult? Function()? failed,
+  }) {
+    return failed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? isSigned,
+    TResult Function()? isNotSigned,
+    TResult Function()? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_IsSigned value) isSigned,
+    required TResult Function(_IsNotSigned value) isNotSigned,
+    required TResult Function(_Failed value) failed,
+  }) {
+    return failed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_IsSigned value)? isSigned,
+    TResult? Function(_IsNotSigned value)? isNotSigned,
+    TResult? Function(_Failed value)? failed,
+  }) {
+    return failed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_IsSigned value)? isSigned,
+    TResult Function(_IsNotSigned value)? isNotSigned,
+    TResult Function(_Failed value)? failed,
+    required TResult orElse(),
+  }) {
+    if (failed != null) {
+      return failed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Failed implements AuthState {
+  const factory _Failed() = _$FailedImpl;
 }
