@@ -23,5 +23,5 @@ abstract class IAuthRepository {
     required AuthCredential credential,
   });
 
-  bool isSigned();
+  Future<bool> isSigned();
 }

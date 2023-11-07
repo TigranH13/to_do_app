@@ -13,7 +13,6 @@ import 'package:to_do_app/features/auth/domain/i_auth_repository.dart';
 
 import 'package:to_do_app/features/tasks/domain/i_tasks_repository.dart';
 
-import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
 
 part 'auth_event.dart';
@@ -69,27 +68,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(
       const AuthState.loading(),
     );
-    try {
-      final Either<Failure, AuthCredential> createUserWithEmailAndPassword =
-          await authRepository.createUserWithEmailAndPassword(
-              event.email, event.password);
-      createUserWithEmailAndPassword.fold(
-        (l) => emit(
-          const AuthState.failed(),
-        ),
-        (r) async {
-          await qrSignInSourceImpl.saveAuthCredentialInLocalDataSource(
-              authCredential: r);
-          emit(
-            const AuthState.isSigned(),
-          );
-        },
-      );
-    } on ServerException {
-      emit(
+
+    final Either<Failure, AuthCredential> createUserWithEmailAndPassword =
+        await authRepository.createUserWithEmailAndPassword(
+            event.email, event.password);
+    createUserWithEmailAndPassword.fold(
+      (l) => emit(
         const AuthState.failed(),
-      );
-    }
+      ),
+      (r) async {
+        qrSignInSourceImpl.saveAuthCredentialInLocalDataSource(
+            authCredential: r);
+        emit(
+          const AuthState.isSigned(),
+        );
+      },
+    );
   }
 
   Future _signOut(
@@ -99,25 +93,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(
       const AuthState.loading(),
     );
-    try {
-      await authRepository.signOut();
 
-      await qrSignInSourceImpl.removeAuthCredentialFromLocalDataSource();
+    await qrSignInSourceImpl.removeAuthCredentialFromLocalDataSource();
 
-      notificationService.clearNotifications();
+    await notificationService.clearNotifications();
+    await tasksRepository.syncRemoteAndLocalData();
 
-      tasksRepository.syncRemoteAndLocalData();
+    await tasksRepository.clearTaskLocalStorage();
 
-      tasksRepository.clearTaskLocalStorage();
+    await authRepository.signOut();
+    print('haa');
 
-      emit(
-        const AuthState.isNotSigned(),
-      );
-    } on ServerException {
-      emit(
-        const AuthState.failed(),
-      );
-    }
+    emit(
+      const AuthState.isNotSigned(),
+    );
   }
 
   void _signInWithEmailAndPassword(
@@ -130,9 +119,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await authRepository.signInWithEmailAndPassword(
               event.email, event.password);
 
+      await tasksRepository.syncRemoteAndLocalData();
+
       signInWithEmailAndPassword.fold((l) => emit(const AuthState.failed()),
           (r) async {
-        await qrSignInSourceImpl.saveAuthCredentialInLocalDataSource(
+        qrSignInSourceImpl.saveAuthCredentialInLocalDataSource(
             authCredential: r);
         emit(
           const AuthState.isSigned(),

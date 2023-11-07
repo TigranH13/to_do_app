@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:injectable/injectable.dart';
-import 'package:to_do_app/core/error/exceptions.dart';
+
 import 'package:to_do_app/core/error/failures.dart';
 
 import 'package:to_do_app/features/auth/domain/i_auth_repository.dart';
@@ -14,11 +14,7 @@ class AuthRepositoryImpl implements IAuthRepository {
 
   @override
   Future<void> signOut() async {
-    try {
-      await signOut();
-    } catch (e) {
-      throw ServerException();
-    }
+    await firebaseAuth.signOut();
   }
 
   @override

@@ -29,7 +29,7 @@ class HomeScreen extends StatelessWidget {
         body: BlocBuilder<TodoBloc, TodoState>(
           builder: (context, state) {
             return state.map(
-              error: (value) => const CircularProgressIndicator(),
+              failed: (value) => const CircularProgressIndicator(),
               initial: (value) => const SizedBox(),
               loading: (value) => const CircularProgressIndicator(),
               loaded: (value) {

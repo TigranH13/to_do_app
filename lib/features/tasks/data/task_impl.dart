@@ -56,18 +56,9 @@ class TaskRepositoryImpl implements ITasksRepository {
 
   @override
   Future<void> saveTask({required Task task}) async {
-    try {
-      await localDataSource.removeTask(task: task);
+    await localDataSource.saveTask(task: task);
 
-      try {
-        await remoteDataSource.cacheRemovedTask(task: task);
-        await remoteDataSource.removeTask(task: task);
-      } catch (e) {
-        localDataSource.cacheRemovedTask(task: task);
-      }
-    } catch (e) {
-      throw CacheException();
-    }
+    remoteDataSource.saveTask(task: task);
   }
 
   @override
