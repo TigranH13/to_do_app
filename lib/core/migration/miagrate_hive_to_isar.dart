@@ -2,8 +2,9 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:isar/isar.dart';
 import 'package:journey/journey.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:to_do_app/domain/models/task.dart';
+
 import 'package:to_do_app/core/utils/get_random_id.dart';
+import 'package:to_do_app/tasks/domain/models/task.dart';
 
 class MigrateHiveToIsar extends Migration {
   late Future<Isar> db;
@@ -46,6 +47,8 @@ class MigrateHiveToIsar extends Migration {
       final Task hiveData = hiveBox.getAt(i);
 
       final Task model = Task(
+        timeStemp: DateTime.now(),
+        scheduleTime: DateTime.now(),
         title: hiveData.title,
         forId: Utils().getRandomId(),
       );
